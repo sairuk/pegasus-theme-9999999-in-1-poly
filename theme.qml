@@ -76,14 +76,23 @@ FocusScope {
             id: collName
             anchors.top: parent.top
             anchors.horizontalCenter: parent.horizontalCenter
-            text: collection.name
+            text: "9999999 "+collection.name+" Games"
+        }
+		
+		RetroText {
+            id: startText
+			anchors.topMargin: scaled(50)
+			color: "red"
+            anchors.top: parent.top
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: "PUSH START KEY"
         }
 
         ListView {
             id: gamelist
 
-            readonly property int maxVisibleLines: 16
-            readonly property int leftPadding: scaled(64)
+            readonly property int maxVisibleLines: 24
+            readonly property int leftPadding: scaled(34)
             readonly property int digitCount: collection.games.count.toString().length
 
             height: parent.textHeight * maxVisibleLines
@@ -92,6 +101,7 @@ FocusScope {
             anchors.leftMargin: scaled(180) - leftPadding
             anchors.right: parent.right
             anchors.rightMargin: scaled(160)
+			anchors.topMargin: scaled(90)
             clip: true
 
             focus: true
@@ -124,7 +134,7 @@ FocusScope {
                 leftPadding: gamelist.leftPadding
                 width: ListView.view.width
                 elide: Text.ElideRight
-
+				
                 Keys.onPressed: {
                     if (event.isAutoRepeat)
                         return;
@@ -151,10 +161,10 @@ FocusScope {
             highlight: Item {
                 AnimatedSprite {
                     source: "assets/birdA.png"
-                    frameWidth: 16
-                    frameHeight: 6
-                    frameCount: 4
-                    frameDuration: 150
+                    frameWidth: 41
+                    frameHeight: 44
+                    frameCount: 1
+                    frameDuration: 0
 
                     interpolate: false
                     smooth: false
@@ -206,5 +216,6 @@ FocusScope {
             anchors.leftMargin: scaled(520)
             anchors.topMargin: scaled(597)
         }
+
     }
 }
