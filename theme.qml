@@ -10,8 +10,20 @@ FocusScope {
 	
     SoundEffect {
     id: selectSound
-    source: "assets/audio/select.wav"
-    volume: 1.5
+    source: "assets/audio/Select.wav"
+    volume: 2.5
+  }
+  
+     SoundEffect {
+    id: navSound
+    source: "assets/audio/Nav.wav"
+    volume: 2.5
+  }
+  
+     SoundEffect {
+    id: changeSound
+    source: "assets/audio/Change.wav"
+    volume: 2.5
   }
 
     function zeroPad(number, width) {
@@ -28,14 +40,16 @@ FocusScope {
     }
 
     function nextCollection() {
+	changeSound.play();
         collectionIdx = modulo(collectionIdx + 1, api.collections.count);
-		selectSound.Play();
     }
     function prevCollection() {
+	changeSound.play();
         collectionIdx = modulo(collectionIdx - 1, api.collections.count);
     }
 
     function launchGame(game) {
+		selectSound.play();
         api.memory.set('collectionIndex', collectionIdx);
         api.memory.set('gameIndex', gamelist.currentIndex);
         game.launch();
@@ -114,12 +128,14 @@ FocusScope {
 
                 if (api.keys.isPageDown(event)) {
                     event.accepted = true;
+									navSound.play();
                     currentIndex = Math.min(api.currentCollection.games.count - 1,
                                             currentIndex + maxVisibleLines);
                     return;
                 }
                 if (api.keys.isPageUp(event)) {
                     event.accepted = true;
+									navSound.play();
                     currentIndex = Math.max(0, currentIndex - maxVisibleLines);
                     return;
                 }
@@ -135,6 +151,7 @@ FocusScope {
                 leftPadding: gamelist.leftPadding
                 width: ListView.view.width
                 elide: Text.ElideRight
+			
 				
                 Keys.onPressed: {
                     if (event.isAutoRepeat)
@@ -179,9 +196,9 @@ FocusScope {
             onCurrentIndexChanged: {
                 const page = Math.floor(currentIndex / maxVisibleLines);
                 contentY = page * maxVisibleLines * parent.textHeight;
-
                 const bg_idx = page % background.bgCount;
                 background.source = "bg/%1.png".arg(bg_idx);
+				navSound.play();
                 bgFire.visible = bg_idx == 9;
             }
         }
