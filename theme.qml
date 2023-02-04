@@ -7,6 +7,12 @@ FocusScope {
     function scaled(value) {
         return scale * value;
     }
+	
+    SoundEffect {
+    id: selectSound
+    source: "assets/audio/select.wav"
+    volume: 1.5
+  }
 
     function zeroPad(number, width) {
         var str = number.toString();
@@ -23,6 +29,7 @@ FocusScope {
 
     function nextCollection() {
         collectionIdx = modulo(collectionIdx + 1, api.collections.count);
+		selectSound.Play();
     }
     function prevCollection() {
         collectionIdx = modulo(collectionIdx - 1, api.collections.count);
@@ -32,6 +39,7 @@ FocusScope {
         api.memory.set('collectionIndex', collectionIdx);
         api.memory.set('gameIndex', gamelist.currentIndex);
         game.launch();
+
     }
 
     property int collectionIdx: api.memory.get('collectionIndex') || 0
@@ -46,13 +54,6 @@ FocusScope {
 
 
     FontLoader { source: "assets/arcade-classic.ttf" }
-
-    Audio {
-        audioRole: Audio.MusicRole
-        source: "assets/music.ogg"
-        autoPlay: true
-        loops: Audio.Infinite
-    }
 
     Image {
         id: background
