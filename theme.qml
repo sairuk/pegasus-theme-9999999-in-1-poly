@@ -3,7 +3,7 @@ import QtMultimedia 5.8
 
 
 FocusScope {
-    readonly property real scale: Math.min(width / 960.0, height / 720.0)
+    readonly property real scale: Math.min(width / 1280.0, height / 720.0)
     function scaled(value) {
         return scale * value;
     }
@@ -53,7 +53,6 @@ FocusScope {
         api.memory.set('collectionIndex', collectionIdx);
         api.memory.set('gameIndex', gamelist.currentIndex);
         game.launch();
-
     }
 
     property int collectionIdx: api.memory.get('collectionIndex') || 0
@@ -65,7 +64,6 @@ FocusScope {
     Component.onCompleted: {
         gamelist.currentIndex = api.memory.get('gameIndex') || 0;
     }
-
 
     FontLoader { source: "assets/arcade-classic.ttf" }
 
@@ -81,7 +79,7 @@ FocusScope {
     }
 
     Item {
-        width: scaled(960)
+        width: scaled(1280)
         height: scaled(720)
         anchors.centerIn: parent
 
@@ -91,7 +89,7 @@ FocusScope {
             id: collName
             anchors.top: parent.top
             anchors.horizontalCenter: parent.horizontalCenter
-            text: "9999999 "+collection.name+" Games"
+            text: collection.name+" Games"
         }
 		
 		RetroText {
