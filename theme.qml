@@ -89,7 +89,7 @@ FocusScope {
             id: collName
             anchors.top: parent.top
             anchors.horizontalCenter: parent.horizontalCenter
-            text: collection.name+" Games"
+            text: collection.name
         }
 		
 		RetroText {
