@@ -122,10 +122,9 @@ FocusScope {
 
             Keys.onPressed: {
 
-				navSound.play();
-
                 if (api.keys.isPageDown(event)) {
                     event.accepted = true;
+                    navSound.play();
 
                     if ( currentIndex >= collection.games.count - maxVisibleLines )
                         currentIndex = collection.games.count - 1;
