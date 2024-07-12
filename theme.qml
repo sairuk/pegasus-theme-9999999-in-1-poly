@@ -121,20 +121,28 @@ FocusScope {
             keyNavigationWraps: true
 
             Keys.onPressed: {
-                if (event.isAutoRepeat)
-                    return;
+
+				navSound.play();
 
                 if (api.keys.isPageDown(event)) {
                     event.accepted = true;
-									navSound.play();
-                    currentIndex = Math.min(api.currentCollection.games.count - 1,
-                                            currentIndex + maxVisibleLines);
+
+                    if ( currentIndex >= collection.games.count - maxVisibleLines )
+                        currentIndex = collection.games.count - 1;
+                    else
+                        currentIndex = currentIndex + maxVisibleLines;
                     return;
                 }
+                
                 if (api.keys.isPageUp(event)) {
                     event.accepted = true;
-									navSound.play();
-                    currentIndex = Math.max(0, currentIndex - maxVisibleLines);
+					navSound.play();
+
+                    if ( currentIndex <= maxVisibleLines )
+                        currentIndex = 0;
+                    else
+                        currentIndex = currentIndex - maxVisibleLines;
+
                     return;
                 }
             }
